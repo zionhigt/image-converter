@@ -1,9 +1,11 @@
 import sys
 from PyQt5 import QtWidgets, QtCore, QtGui
 
+import humanize
+
 from MainWindow import Ui_MainWindow
 
-from files.file_selector import select, srcToDest, getExtention
+from files.file_selector import select, srcToDest, getExtention, getSize
 from converter.convert import converter, ConverterDestExists, ConverterSrcNotExists
 import os
 
@@ -40,7 +42,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.available_out_ext = [
             ".webp",
             ".jpeg",
-            ".jpg",
             ".png"
         ]
 
@@ -241,6 +242,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             "error": QtGui.QColor("red"),
             "warning": QtGui.QColor("orange"),
             "success": QtGui.QColor("green"),
+            "info": QtGui.QColor("blue"),
         }
         log_item = self.makeItem(text, checked=None)
         log_item.setForeground(status.get(stat, QtGui.QColor("black")))
@@ -248,6 +250,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def convert(self):
         if len(self.src_selected):
+            sizes = []
             for i, item in enumerate(self.src_selected):
                 log = []
                 try:
@@ -255,7 +258,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     converter(item.text(), out_text, self.out_ext, force=self.dest_force)
                     
                     log = ["%s ---> %s" %(item.text(), out_text), "success"]
-
+                    sizes.append((getSize(item.text()), getSize(out_text)))
                 except ConverterSrcNotExists as e:
                     log = [str(e), "error"]
                 except ConverterDestExists as e:
@@ -264,8 +267,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.pushToLog(*log)
                 forwarding_ratio =  (i + 1) / len(self.src_selected) * 100
                 self.progressBar.setProperty("value", forwarding_ratio)
-        else:
+            delta_size = sum([i[0][0] - i[1][0] for i in sizes])
+            self.pushToLog("%s %s" % (humanize.naturalsize(abs(delta_size)), " ont été libérés" if delta_size > 0 else " ont été ajoutés"), "info")
 
+        else:
             self.pushToLog("La source ne contient aucun élément ! \n - Choississez un dossier source et sélectionnez des fichiers\n - Ouvrez un fichier depuis le menu Fichier", "error")
 
         
