@@ -268,10 +268,16 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 forwarding_ratio =  (i + 1) / len(self.src_selected) * 100
                 self.progressBar.setProperty("value", forwarding_ratio)
             delta_size = sum([i[0][0] - i[1][0] for i in sizes])
-            self.pushToLog("%s %s" % (humanize.naturalsize(abs(delta_size)), " ont été libérés" if delta_size > 0 else " ont été ajoutés"), "info")
+            self.pushToLog("%s %s" % (
+                humanize.naturalsize(abs(delta_size)),
+                " ont été libérés" if delta_size > 0 else " ont été ajoutés"
+                ), "info")
 
         else:
-            self.pushToLog("La source ne contient aucun élément ! \n - Choississez un dossier source et sélectionnez des fichiers\n - Ouvrez un fichier depuis le menu Fichier", "error")
+            self.pushToLog("""La source ne contient aucun élément !
+            - Choississez un dossier source et sélectionnez des fichiers
+            - Ouvrez un fichier depuis le menu Fichier"""
+             , "error")
 
         
 
