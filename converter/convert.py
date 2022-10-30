@@ -17,4 +17,8 @@ def converter(src, dest, out_format, force=False):
     if dest_path.is_file() and not force:
         raise ConverterDestExists(dest)
     image = Image.open(src)  # Open image
+    if out_format in [".jpeg", ".jpg"]:
+        out_format = ".jpeg"
+        if image.mode in ("RGBA", "P"):
+            image = image.convert('RGB')
     image.save(dest, format=out_format.split(".")[-1])
