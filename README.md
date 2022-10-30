@@ -1,1 +1,1 @@
-## Image converter with UI.
+## Image converter with UI
