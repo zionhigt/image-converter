@@ -1,4 +1,5 @@
 import pathlib
+import humanize
 import os
 
 def select(root):
@@ -15,3 +16,8 @@ def srcToDest(src, dest, ext_out):
 
 def getExtention(path):
     return os.path.splitext(os.path.split(path)[1])[1]
+
+def getSize(path):
+    size = pathlib.Path(path).stat().st_size
+    natural_size = humanize.naturalsize(size)
+    return (size, natural_size)
