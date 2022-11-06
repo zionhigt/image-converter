@@ -159,21 +159,29 @@ class Callback:
                 ), "info")
 
         else:
-            self.ui.pushToLog("""La source ne contient aucun élément !
-            - Choississez un dossier source et sélectionnez des fichiers
-            - Ouvrez un fichier depuis le menu Fichier"""
-             , "error")
+            self.ui.srcEmptyLog()
             
     def srcItemChanged(self, item):
         method = self.ui.checkItem if int(item.checkState()) == 2 else self.ui.uncheckItem
         method(item)
 
-    def gif(self):
+    def gifPreview(self):
         if len(self.ui.src_selected):
             images = [i.text() for i in self.ui.src_selected]
-            self.ui.preview.path = 'pillow_imagedraw.gif'
-            getPreview(images, self.ui.preview.path, self.ui.gif_speed)
-            self.ui.preview.refresh()
-    
+            self.ui.startLoader()
+            height = self.ui.label_2.height()
+            buff = getPreview(images, self.ui.gif_speed, height)
+            self.ui.stopLoader()
+            self.ui.preview.refresh(buff)
+        else:
+            self.ui.srcEmptyLog()
+
+    def speedChanged(fn):
+        def wrap(self, value):
+            self.ui.label_7.setText(_translate("MainWindow", "%s s"% value))
+            return fn(self, value)
+        return wrap
+
+    @speedChanged
     def gifSpeedChange(self, value):
         self.ui.gif_speed = value
