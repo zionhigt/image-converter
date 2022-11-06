@@ -51,11 +51,17 @@ class Preview:
         if Path(self.root).is_dir():
             os.remove(self.path)
 
-    def refresh(self):
+    def refresh(self, buffer=None):
         if self.path is not None:
             self.label.clear()
-            movie = QtGui.QMovie(self.path)
+            if buffer is not None:
+                movie = QtGui.QMovie()
+                movie.setDevice(buffer)
+                movie.setCacheMode(QtGui.QMovie.CacheAll)
+            else:
+                movie = QtGui.QMovie(self.path)
             self.label.setMovie(movie)
+            movie.jumpToFrame(movie.frameCount() - 1)
             movie.start()
     
 

@@ -50,7 +50,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.gif_speed = 40 
 
         self.initOutExtCombo()
-        self.initSpeedSlider()
+        # self.initSpeedSlider()
 
     def initCallbacks(self, *args, **kwargs):
         self.callbacks.init((
@@ -66,13 +66,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             (self.comboBox_3, "currentTextChanged", "setOutExt"),
             (self.commandLinkButton, "clicked", "convert"),
             (self.listWidget_3, "itemClicked", "srcItemChanged"),
-            (self.commandLinkButton_3, "clicked", "gif"),
-            (self.verticalSlider, "valueChanged", "gifSpeedChange"),
+            (self.toolButton_4, "clicked", "gifPreview"),
+            (self.horizontalSlider, "valueChanged", "gifSpeedChange"),
         ))
+        QtWidgets.QApplication.processEvents()
         self.checkBox.setToolTip("En mode force, la destination déjà existante sera écrasée.")
 
     def initSpeedSlider(self, *args, **kwargs):
-        bar = self.verticalSlider
+        bar = self.horizontalSlider
         bar.setMinimum(40)
         bar.setMaximum(360)
 
@@ -158,15 +159,20 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.showList("dest", self.listWidget_4)
 
     def pushToLog(self, text, stat, *args, **kwargs):
+        lists_widget = [
+            self.listWidget,
+            self.listWidget_7,
+        ]
         status = {
             "error": QtGui.QColor("red"),
             "warning": QtGui.QColor("orange"),
             "success": QtGui.QColor("green"),
             "info": QtGui.QColor("blue"),
         }
-        log_item = self.makeItem(text, checked=None)
-        log_item.setForeground(status.get(stat, QtGui.QColor("black")))
-        self.listWidget.addItem(log_item)
+        for container in lists_widget:
+            log_item = self.makeItem(text, checked=None)
+            log_item.setForeground(status.get(stat, QtGui.QColor("black")))
+            container.addItem(log_item)
 
     def makeItem(self, text, checked=False, *args, **kwargs):
         item = QtWidgets.QListWidgetItem()
@@ -181,11 +187,27 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         item.setText(_translate("MainWindow", text))
 
         return item
-        
+
+    def startLoader(self):
+        self.label_2.clear()
+        movie = QtGui.QMovie("./loader.gif")
+        self.label_2.setMovie(movie)
+        movie.start()
+        QtWidgets.QApplication.processEvents()
+        QtWidgets.QApplication.processEvents()
+
+    def stopLoader(self):
+        self.label_2.clear()
+
+    def srcEmptyLog(self):
+        self.pushToLog("""La source ne contient aucun élément !
+            - Choississez un dossier source et sélectionnez des fichiers
+            - Ouvrez un fichier depuis le menu Fichier"""
+             , "error")
+
 
 
 app = QtWidgets.QApplication(sys.argv)
-
 window = MainWindow()
 window.show()
 app.exec()

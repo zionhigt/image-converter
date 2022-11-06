@@ -31,7 +31,7 @@
         <rect>
          <x>520</x>
          <y>0</y>
-         <width>523</width>
+         <width>525</width>
          <height>731</height>
         </rect>
        </property>
@@ -396,38 +396,6 @@
                   </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_5">
                    <item>
-                    <widget class="QFrame" name="frame_12">
-                     <property name="maximumSize">
-                      <size>
-                       <width>77</width>
-                       <height>16777215</height>
-                      </size>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::StyledPanel</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Raised</enum>
-                     </property>
-                     <layout class="QVBoxLayout" name="verticalLayout_6">
-                      <item>
-                       <widget class="QLabel" name="label_7">
-                        <property name="text">
-                         <string>Vitesse</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <widget class="QSlider" name="verticalSlider">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </widget>
-                   </item>
-                   <item>
                     <widget class="QLabel" name="label_2">
                      <property name="enabled">
                       <bool>true</bool>
@@ -435,7 +403,7 @@
                      <property name="minimumSize">
                       <size>
                        <width>0</width>
-                       <height>137</height>
+                       <height>235</height>
                       </size>
                      </property>
                      <property name="frameShape">
@@ -446,6 +414,83 @@
                      </property>
                      <property name="text">
                       <string/>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QFrame" name="frame_14">
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_7">
+                   <item>
+                    <widget class="QToolButton" name="toolButton_4">
+                     <property name="font">
+                      <font>
+                       <family>FontAwesome</family>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>/f04b</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>../assets/play_icon.svg</normaloff>../assets/play_icon.svg</iconset>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QToolButton" name="toolButton">
+                     <property name="text">
+                      <string>...</string>
+                     </property>
+                     <property name="icon">
+                      <iconset>
+                       <normaloff>../assets/pause_icon.svg</normaloff>../assets/pause_icon.svg</iconset>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QSlider" name="horizontalSlider">
+                     <property name="cursor">
+                      <cursorShape>ClosedHandCursor</cursorShape>
+                     </property>
+                     <property name="toolTip">
+                      <string>Utliser &lt;- et -&gt; pour plus de précision</string>
+                     </property>
+                     <property name="minimum">
+                      <number>40</number>
+                     </property>
+                     <property name="maximum">
+                      <number>360</number>
+                     </property>
+                     <property name="tracking">
+                      <bool>true</bool>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="invertedControls">
+                      <bool>false</bool>
+                     </property>
+                     <property name="tickPosition">
+                      <enum>QSlider::TicksBothSides</enum>
+                     </property>
+                     <property name="tickInterval">
+                      <number>10</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_7">
+                     <property name="text">
+                      <string>40 s</string>
                      </property>
                     </widget>
                    </item>
