@@ -68,6 +68,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             (self.listWidget_3, "itemClicked", "srcItemChanged"),
             (self.toolButton_4, "clicked", "gifPreview"),
             (self.horizontalSlider, "valueChanged", "gifSpeedChange"),
+            (self.commandLinkButton_3, "clicked", "saveGif"),
         ))
         QtWidgets.QApplication.processEvents()
         self.checkBox.setToolTip("En mode force, la destination déjà existante sera écrasée.")

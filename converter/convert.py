@@ -62,9 +62,13 @@ def getPreview(images, duration, height):
     img, *imgs = pil_images
     bytes_io = io.BytesIO()
     fps = len(images) / duration
-    print(fps)
-    img.save(fp=bytes_io, format='GIF', append_images=imgs, save_all=True, fps=0.5, loop=0)
+    img.save(fp=bytes_io, format='GIF', append_images=imgs, save_all=True, fps=fps, loop=0)
     q_byte_array = QtCore.QByteArray(bytes_io.getvalue())
     bytes_io.close()
     q_buffer = QtCore.QBuffer(q_byte_array)
     return q_buffer
+
+def save(image):
+    image = Image()
+    image = image.frombytes(image)
+

@@ -185,3 +185,6 @@ class Callback:
     @speedChanged
     def gifSpeedChange(self, value):
         self.ui.gif_speed = value
+
+    def saveGif(self, gif_image):
+        pass
